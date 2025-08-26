@@ -18,7 +18,7 @@
             overflow-x: hidden;
         }
 
-    /* Header */
+        /* Header */
         .header {
             position: fixed;
             top: 0;
@@ -26,35 +26,34 @@
             background: black;
             backdrop-filter: blur(10px);
             z-index: 1000;
-   
+            padding: 0.5rem 0;
         }
 
         .nav-container {
-            width: 100%;                 /* full width, no centering */
+            width: 100%;
             margin: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;             /* keeps nav from sticking to screen edge */
+            padding: 0 2rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* align logo content to left */
+            justify-content: flex-start;
             color: white;
             font-size: 1.5rem;
             font-weight: bold;
-             font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .logo-img {
-            height: 60px;   /* smaller height looks more balanced */
+            height: 60px;
             width: auto;
             margin-top: 10px;
             margin-right: 10px;
         }
-
 
         .nav-menu {
             display: flex;
@@ -86,6 +85,51 @@
         .contact-btn:hover {
             background: #014292;
             color: #fff;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #014292;
         }
 
         /* Main Content */
@@ -371,7 +415,7 @@
             color: #fff;
         }
 
-        /* Responsive Design */
+        /* Mobile Responsive Design */
         @media (max-width: 1024px) {
             .main-content {
                 flex-direction: column;
@@ -393,51 +437,260 @@
             }
             
             .nav-pills {
-                display: none;
+                right: 1rem;
+            }
+
+            .nav-pill {
+                width: 50px;
+                height: 50px;
+                font-size: 0.7rem;
             }
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 0.5rem 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .logo-img {
+                height: 45px;
+            }
+
             .nav-menu {
                 display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
             }
             
             .hero-title {
                 font-size: 2rem;
+                text-align: center;
             }
             
             .hero-content {
                 text-align: center;
+                padding: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .content-section {
+                padding: 2rem 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-card, .product-card, .contact-card {
+                padding: 1.5rem;
+            }
+
+            .nav-pills {
+                position: fixed;
+                bottom: 2rem;
+                right: 50%;
+                transform: translateX(50%);
+                flex-direction: row;
+                gap: 0.5rem;
+                top: auto;
+            }
+
+            .nav-pill {
+                width: 45px;
+                height: 45px;
+                font-size: 0.8rem;
+            }
+
+            .red-sidebar {
+                padding: 1.5rem;
+                min-height: auto;
+            }
+
+            .sidebar-logo {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-section {
+                padding: 1.5rem;
+                min-height: 50vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo-img {
+                height: 35px;
+                margin-right: 5px;
+            }
+
+            .hero-title {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .feature-card h3,
+            .product-card h3,
+            .contact-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-card,
+            .product-card,
+            .contact-card {
+                padding: 1rem;
+            }
+
+            .product-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .nav-pills {
+                bottom: 1rem;
+                gap: 0.3rem;
+            }
+
+            .nav-pill {
+                width: 35px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+
+            .mobile-menu {
+                padding: 1rem;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero-section {
+                min-height: 40vh;
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .red-sidebar {
+                padding: 1rem;
+            }
+
+            .sidebar-logo {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-<!-- Header -->
-<header class="header">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <div class="nav-container">
-        <!-- Logo with Image Placeholder -->
-        <div class="logo">
-            <img src="Images/LOGO1.png" alt="Logo" class="logo-img">
-            <span>MARIA FE AUTO SERVICES</span>
+    <header class="header">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <div class="nav-container">
+            <!-- Logo with Image Placeholder -->
+            <div class="logo">
+                <img src="Images/logo1.png" alt="Logo" class="logo-img">
+                <span>MARIA FE AUTO SERVICES</span>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showSection('home')">HOME</a></li>
+                    <li><a href="#" onclick="showSection('products')">PRODUCTS</a></li>
+                    <li><a href="#" onclick="showSection('services')">SERVICES</a></li>
+                    <li><a href="#" onclick="showSection('about')">ABOUT US</a></li>
+                    <li><a href="#" onclick="showSection('news')">NEWS</a></li>
+                    <li><a href="#" class="contact-btn" onclick="showSection('contact')">CONTACT US</a></li>
+                </ul>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#" onclick="showSection('home'); closeMobileMenu()">HOME</a>
+                <a href="#" onclick="showSection('products'); closeMobileMenu()">PRODUCTS</a>
+                <a href="#" onclick="showSection('services'); closeMobileMenu()">SERVICES</a>
+                <a href="#" onclick="showSection('about'); closeMobileMenu()">ABOUT US</a>
+                <a href="#" onclick="showSection('news'); closeMobileMenu()">NEWS</a>
+                <a href="#" onclick="showSection('contact'); closeMobileMenu()">CONTACT US</a>
+            </div>
         </div>
-
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="#" onclick="showSection('home')">HOME</a></li>
-                <li><a href="#" onclick="showSection('products')">PRODUCTS</a></li>
-                <li><a href="#" onclick="showSection('services')">SERVICES</a></li>
-                <li><a href="#" onclick="showSection('about')">ABOUT US</a></li>
-                <li><a href="#" onclick="showSection('news')">NEWS</a></li>
-                <li><a href="#" class="contact-btn" onclick="showSection('contact')">CONTACT US</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-
+    </header>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -656,11 +909,37 @@
             currentSection = sectionName;
         }
 
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             showSection('home');
         });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('mobileMenu').classList.remove('active');
+            }
+        });
     </script>
 </body>
-
 </html>
