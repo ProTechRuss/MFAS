@@ -1,946 +1,974 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maria Fe Auto Services - Crane Safety Devices & Heavy Equipment</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #000;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: black;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 0.5rem 0;
-        }
-
-        .nav-container {
-            width: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .logo-img {
-            height: 60px;
-            width: auto;
-            margin-top: 10px;
-            margin-right: 10px;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .nav-menu li a:hover {
-            color: #014292;
-        }
-
-        .contact-btn {
-            border: 2px solid #014292;
-            color: #014292;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .contact-btn:hover {
-            background: #014292;
-            color: #fff;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .mobile-menu-btn span {
-            width: 25px;
-            height: 3px;
-            background: #fff;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(10px);
-            flex-direction: column;
-            padding: 2rem;
-        }
-
-        .mobile-menu.active {
-            display: flex;
-        }
-
-        .mobile-menu a {
-            color: #fff;
-            text-decoration: none;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .mobile-menu a:hover {
-            color: #014292;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: flex;
-            min-height: 100vh;
-            margin-top: 80px;
-        }
-
-        /* Red Sidebar */
-        .red-sidebar {
-            width: 320px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 3rem;
-            position: relative;
-        }
-
-        .sidebar-logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: black;
-            margin-bottom: 2rem;
-            line-height: 1.2;
-        }
-
-        .sidebar-logo .services {
-            font-weight: 300;
-        }
-
-        /* Main Hero Section */
-        .hero-section {
-            flex: 1;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23333"/><g fill="%23555" opacity="0.3"><rect x="100" y="200" width="60" height="300"/><rect x="200" y="150" width="80" height="400"/><rect x="320" y="180" width="100" height="350"/><polygon points="400,100 500,50 600,80 550,150 450,120"/><rect x="700" y="250" width="150" height="200"/><circle cx="950" cy="300" r="80" fill="%23777"/></g></svg>') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 600px;
-            text-align: left;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: #fff;
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 3rem;
-        }
-
-        .cta-button {
-            background: #014292;
-            color: #fff;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .cta-button:hover {
-            background: #d32f2f;
-            transform: translateX(5px);
-        }
-
-        .cta-button::after {
-            content: '→';
-            font-size: 1.2rem;
-        }
-
-        /* Content Sections */
-        .content-section {
-            display: none;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #ccc;
-            text-align: center;
-            margin-bottom: 4rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .feature-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-5px);
-        }
-
-        .feature-card h3 {
-            color: #014292;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card p {
-            color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-list {
-            list-style: none;
-        }
-
-        .feature-list li {
-            color: #fff;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .feature-list li::before {
-            content: "✓";
-            color: #014292;
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-
-        /* Products Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .product-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .product-card:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-5px);
-        }
-
-        .product-icon {
-            width: 80px;
-            height: 80px;
-            background: #014292;
-            border-radius: 8px;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-
-        .product-card h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .product-card p {
-            color: #ccc;
-            line-height: 1.5;
-        }
-
-        /* Navigation Pills */
-        .nav-pills {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 100;
-        }
-
-        .nav-pill {
-            width: 60px;
-            height: 60px;
-            background: grey;
-            border: 2px solid white;
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
-        .nav-pill:hover, .nav-pill.active {
-            background: #014292;
-            border-color: #014292;
-            transform: scale(1.1);
-        }
-
-        /* Contact Section */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-card h3 {
-            color: #014292;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info {
-            color: #ccc;
-            line-height: 1.8;
-        }
-
-        .contact-info strong {
-            color: #fff;
-        }
-
-        /* Mobile Responsive Design */
-        @media (max-width: 1024px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .red-sidebar {
-                width: 100%;
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .hero-section {
-                min-height: 60vh;
-                padding: 2rem;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .nav-pills {
-                right: 1rem;
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maria Fe Auto Services - Crane Safety Devices & Heavy Equipment</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            .nav-pill {
-                width: 50px;
-                height: 50px;
-                font-size: 0.7rem;
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #000;
+                color: #ffffff;
+                overflow-x: hidden;
             }
-        }
 
-        @media (max-width: 768px) {
+            /* Header */
             .header {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                background: black;
+                backdrop-filter: blur(10px);
+                z-index: 1000;
                 padding: 0.5rem 0;
             }
 
             .nav-container {
-                padding: 0 1rem;
+                width: 100%;
+                margin: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 2rem;
             }
 
             .logo {
-                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                color: white;
+                font-size: 1.5rem;
+                font-weight: bold;
+                font-family: 'Montserrat', sans-serif;
             }
 
             .logo-img {
-                height: 45px;
+                height: 60px;
+                width: auto;
+                margin-top: 10px;
+                margin-right: 10px;
             }
 
             .nav-menu {
-                display: none;
-            }
-
-            .mobile-menu-btn {
                 display: flex;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-                text-align: center;
-            }
-            
-            .hero-content {
-                text-align: center;
-                padding: 1rem;
+                list-style: none;
+                gap: 2rem;
             }
 
-            .hero-subtitle {
-                font-size: 1rem;
-                margin-bottom: 2rem;
+            .nav-menu li a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s ease;
+                font-family: 'Montserrat', sans-serif;
             }
 
-            .cta-button {
+            .nav-menu li a:hover {
+                color: #014292;
+            }
+
+            .contact-btn {
+                border: 2px solid #014292;
+                color: #014292;
                 padding: 0.8rem 1.5rem;
-                font-size: 0.9rem;
+                text-decoration: none;
+                font-weight: bold;
+                transition: all 0.3s ease;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .contact-btn:hover {
+                background: #014292;
+                color: #fff;
             }
 
-            .section-subtitle {
-                font-size: 1rem;
-                margin-bottom: 2rem;
+            /* Mobile Menu */
+            .mobile-menu-btn {
+                display: none;
+                flex-direction: column;
+                cursor: pointer;
+                padding: 0.5rem;
             }
 
-            .content-section {
-                padding: 2rem 1rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                margin: 2rem 0;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .feature-card, .product-card, .contact-card {
-                padding: 1.5rem;
-            }
-
-            .nav-pills {
-                position: fixed;
-                bottom: 2rem;
-                right: 50%;
-                transform: translateX(50%);
-                flex-direction: row;
-                gap: 0.5rem;
-                top: auto;
-            }
-
-            .nav-pill {
-                width: 45px;
-                height: 45px;
-                font-size: 0.8rem;
-            }
-
-            .red-sidebar {
-                padding: 1.5rem;
-                min-height: auto;
-            }
-
-            .sidebar-logo {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .hero-section {
-                padding: 1.5rem;
-                min-height: 50vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0 0.5rem;
-            }
-
-            .logo {
-                font-size: 1rem;
-            }
-
-            .logo-img {
-                height: 35px;
-                margin-right: 5px;
-            }
-
-            .hero-title {
-                font-size: 1.5rem;
-                line-height: 1.2;
-            }
-
-            .hero-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .feature-card h3,
-            .product-card h3,
-            .contact-card h3 {
-                font-size: 1.2rem;
-            }
-
-            .feature-card,
-            .product-card,
-            .contact-card {
-                padding: 1rem;
-            }
-
-            .product-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-
-            .nav-pills {
-                bottom: 1rem;
-                gap: 0.3rem;
-            }
-
-            .nav-pill {
-                width: 35px;
-                height: 35px;
-                font-size: 0.7rem;
-            }
-
-            .cta-button {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.8rem;
+            .mobile-menu-btn span {
+                width: 25px;
+                height: 3px;
+                background: #fff;
+                margin: 3px 0;
+                transition: 0.3s;
             }
 
             .mobile-menu {
-                padding: 1rem;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 2rem;
             }
-        }
 
-        /* Landscape orientation adjustments */
-        @media (max-width: 768px) and (orientation: landscape) {
+            .mobile-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu a {
+                color: #fff;
+                text-decoration: none;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+            .mobile-menu a:hover {
+                color: #014292;
+            }
+
+            /* Main Content */
+            .main-content {
+                display: flex;
+                min-height: 100vh;
+                margin-top: 80px;
+            }
+
+            /* Red Sidebar */
+            .red-sidebar {
+                width: 320px;
+                background: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 3rem;
+                position: relative;
+            }
+
+            /* Sidebar text styling */
+            .sidebar-logo {
+                font-size: 1.8rem;
+                font-weight: 800;
+                color: black;
+                line-height: 1.2;
+                letter-spacing: 1px;
+            }
+
+            /* Group each block with margin spacing */
+            .sidebar-logo br {
+                display: none; /* remove <br> reliance */
+            }
+
+            .sidebar-block {
+                margin-bottom: 2rem; /* spacing between CRANE, LMI, AUTOMOTIVE blocks */
+            }
+
+            .sidebar-block span {
+                display: block;
+                font-size: 1.2rem;
+                font-weight: 400;
+                margin-top: 0.3rem; /* spacing between title and subtitle */
+                color: #444;
+            }
+
+            
+
+            /* Main Hero Section */
             .hero-section {
-                min-height: 40vh;
-                padding: 1rem;
+                flex: 1;
+                background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
+                            url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23333"/><g fill="%23555" opacity="0.3"><rect x="100" y="200" width="60" height="300"/><rect x="200" y="150" width="80" height="400"/><rect x="320" y="180" width="100" height="350"/><polygon points="400,100 500,50 600,80 550,150 450,120"/><rect x="700" y="250" width="150" height="200"/><circle cx="950" cy="300" r="80" fill="%23777"/></g></svg>') center/cover;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4rem;
+                position: relative;
+            }
+
+            .hero-content {
+                max-width: 600px;
+                text-align: left;
             }
 
             .hero-title {
-                font-size: 1.8rem;
-                margin-bottom: 1rem;
+                font-size: 3rem;
+                font-weight: 900;
+                color: #fff;
+                line-height: 1.1;
+                margin-bottom: 2rem;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             }
 
             .hero-subtitle {
-                font-size: 0.9rem;
+                font-size: 1.2rem;
+                color: #fff;
+                opacity: 0.9;
+                line-height: 1.6;
+                margin-bottom: 3rem;
+            }
+
+            .cta-button {
+                background: #014292;
+                color: #fff;
+                padding: 1rem 2rem;
+                text-decoration: none;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                display: inline-flex;
+                align-items: center;
+                gap: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .cta-button:hover {
+                background: #d32f2f;
+                transform: translateX(5px);
+            }
+
+            .cta-button::after {
+                content: '→';
+                font-size: 1.2rem;
+            }
+
+            /* Content Sections */
+            .content-section {
+                display: none;
+                padding: 4rem 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .content-section.active {
+                display: block;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+                font-weight: 900;
+                color: #fff;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .section-subtitle {
+                font-size: 1.2rem;
+                color: #ccc;
+                text-align: center;
+                margin-bottom: 4rem;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin: 3rem 0;
+            }
+
+            .feature-card {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                padding: 2.5rem;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            }
+
+            .feature-card:hover {
+                background: rgba(255,255,255,0.08);
+                transform: translateY(-5px);
+            }
+
+            .feature-card h3 {
+                color: #014292;
+                font-size: 1.4rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+            }
+
+            .feature-card p {
+                color: #ccc;
+                line-height: 1.6;
                 margin-bottom: 1.5rem;
             }
 
-            .red-sidebar {
-                padding: 1rem;
+            .feature-list {
+                list-style: none;
             }
 
-            .sidebar-logo {
+            .feature-list li {
+                color: #fff;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                position: relative;
+                padding-left: 2rem;
+            }
+
+            .feature-list li::before {
+                content: "✓";
+                color: #014292;
+                font-weight: bold;
+                position: absolute;
+                left: 0;
+            }
+
+            /* Products Grid */
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                margin: 3rem 0;
+            }
+
+            .product-card {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                padding: 2rem;
+                text-align: center;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+            }
+
+            .product-card:hover {
+                background: rgba(255,255,255,0.08);
+                transform: translateY(-5px);
+            }
+
+            .product-icon {
+                width: 80px;
+                height: 80px;
+                background: #014292;
+                border-radius: 8px;
+                margin: 0 auto 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+            }
+
+            .product-card h3 {
+                color: #fff;
                 font-size: 1.3rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-        <div class="nav-container">
-            <!-- Logo with Image Placeholder -->
-            <div class="logo">
-                <img src="Images/LOGO1.png" alt="Logo" class="logo-img">
-                <span>MARIA FE AUTO SERVICES</span>
-            </div>
-
-            <!-- Desktop Navigation -->
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="#" onclick="showSection('home')">HOME</a></li>
-                    <li><a href="#" onclick="showSection('products')">PRODUCTS</a></li>
-                    <li><a href="#" onclick="showSection('services')">SERVICES</a></li>
-                    <li><a href="#" onclick="showSection('about')">ABOUT US</a></li>
-                    <li><a href="#" onclick="showSection('news')">NEWS</a></li>
-                    <li><a href="#" class="contact-btn" onclick="showSection('contact')">CONTACT US</a></li>
-                </ul>
-            </nav>
-
-            <!-- Mobile Menu Button -->
-            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- Mobile Navigation Menu -->
-            <div class="mobile-menu" id="mobileMenu">
-                <a href="#" onclick="showSection('home'); closeMobileMenu()">HOME</a>
-                <a href="#" onclick="showSection('products'); closeMobileMenu()">PRODUCTS</a>
-                <a href="#" onclick="showSection('services'); closeMobileMenu()">SERVICES</a>
-                <a href="#" onclick="showSection('about'); closeMobileMenu()">ABOUT US</a>
-                <a href="#" onclick="showSection('news'); closeMobileMenu()">NEWS</a>
-                <a href="#" onclick="showSection('contact'); closeMobileMenu()">CONTACT US</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Red Sidebar -->
-        <div class="red-sidebar">
-            <div class="sidebar-logo">
-                CRANE<br>
-                <span class="services">SERVICES</span>
-            </div>
-        </div>
-
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <div class="hero-content">
-                <h1 class="hero-title">LIFTING SOLUTIONS, TRUSTED HEAVY EQUIPMENT SERVICES, REPAIR & MAINTENANCE EXPERTISE</h1>
-                <p class="hero-subtitle">Providing complete crane solutions — from full refurbishment and rehabilitation to advanced load moment indicator installations, supported by expert repair and maintenance services for maximum performance and safety.</p>
-                <a href="#" class="cta-button" onclick="showSection('products')">SEE OUR DIFFERENCE</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Navigation Pills -->
-    <div class="nav-pills">
-        <div class="nav-pill active" onclick="showSection('home')" title="Home">🏠︎</div>
-        <div class="nav-pill" onclick="showSection('products')" title="Products">◼</div>
-        <div class="nav-pill" onclick="showSection('services')" title="Services">🛠</div>
-        <div class="nav-pill" onclick="showSection('about')" title="About">ℹ</div>
-        <div class="nav-pill" onclick="showSection('contact')" title="Contact">🕻</div>
-    </div>
-
-    <!-- Products Section -->
-    <div id="products" class="content-section">
-        <h2 class="section-title">CRANE SAFETY DEVICES</h2>
-        <p class="section-subtitle">Professional-grade safety equipment and monitoring systems for heavy construction equipment</p>
-        
-        <div class="products-grid">
-            <div class="product-card">
-                <div class="product-icon">📡</div>
-                <h3>Pressure Sensors</h3>
-                <p>High-precision pressure monitoring for hydraulic systems with real-time data processing</p>
-            </div>
-            <div class="product-card">
-                <div class="product-icon">🖥️</div>
-                <h3>Display Console</h3>
-                <p>User-friendly touch screen colored monitor with real-time indicators and alerts</p>
-            </div>
-            <div class="product-card">
-                <div class="product-icon">⚖️</div>
-                <h3>Tension Meter</h3>
-                <p>Accurate load measurement and tension monitoring for safe lifting operations</p>
-            </div>
-            <div class="product-card">
-                <div class="product-icon">📐</div>
-                <h3>Angle Sensor</h3>
-                <p>Precise angle measurement for boom positioning and operational safety</p>
-            </div>
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>SPECIAL FEATURES</h3>
-                <ul class="feature-list">
-                    <li>User Friendly Touch Screen</li>
-                    <li>Colored Monitor/Indicator</li>
-                    <li>Load Weight Monitoring</li>
-                    <li>Crane Radius Measurement</li>
-                    <li>Angle Detection</li>
-                    <li>Boom Length Calculation</li>
-                    <li>Anti-Two Block System</li>
-                </ul>
-            </div>
-            <div class="feature-card">
-                <h3>TECHNICAL SPECIFICATIONS</h3>
-                <ul class="feature-list">
-                    <li>Weather-resistant design</li>
-                    <li>Real-time data processing</li>
-                    <li>Audio-visual alarms</li>
-                    <li>Data logging capability</li>
-                    <li>Easy installation</li>
-                    <li>Low maintenance requirements</li>
-                    <li>Industry standard compliance</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Services Section -->
-    <div id="services" class="content-section">
-        <h2 class="section-title">OUR SERVICES</h2>
-        <p class="section-subtitle">Comprehensive solutions for heavy equipment safety and maintenance</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Mobile Crane Hire</h3>
-                <p>Over 40 years of mobile crane hire experience with the largest range of cranes and complete lifting services.</p>
-                <ul class="feature-list">
-                    <li>Mobile crane rental</li>
-                    <li>Qualified operators</li>
-                    <li>Project consultation</li>
-                    <li>Safety compliance</li>
-                </ul>
-            </div>
-            <div class="feature-card">
-                <h3>Installation Services</h3>
-                <p>Professional installation of crane safety devices and monitoring systems by certified technicians.</p>
-                <ul class="feature-list">
-                    <li>On-site installation</li>
-                    <li>System calibration</li>
-                    <li>Testing and validation</li>
-                    <li>Operator training</li>
-                </ul>
-            </div>
-            <div class="feature-card">
-                <h3>Maintenance & Support</h3>
-                <p>Regular maintenance and technical support to ensure optimal performance of your equipment.</p>
-                <ul class="feature-list">
-                    <li>Preventive maintenance</li>
-                    <li>Emergency repairs</li>
-                    <li>24/7 technical support</li>
-                    <li>Spare parts supply</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Section -->
-    <div id="about" class="content-section">
-        <h2 class="section-title">ABOUT MARIA FE AUTO SERVICES</h2>
-        <p class="section-subtitle">Over 40 years of mobile crane hire experience with proven expertise</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Our Experience</h3>
-                <p>With over 40 years of mobile crane hire experience, we have established ourselves as a trusted leader in the heavy equipment industry, providing reliable crane safety devices and comprehensive lifting solutions.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Our Mission</h3>
-                <p>To streamline your projects with the largest range of cranes, complete lifting services, and a fully qualified team dedicated to safety and operational excellence in every project we undertake.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Why Choose Us</h3>
-                <ul class="feature-list">
-                    <li>Over 40 years industry experience</li>
-                    <li>Largest range of cranes available</li>
-                    <li>Fully qualified team</li>
-                    <li>Complete lifting services</li>
-                    <li>Advanced safety technology</li>
-                    <li>Professional consultation</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div id="contact" class="content-section">
-        <h2 class="section-title">CONTACT US</h2>
-        <p class="section-subtitle">Get in touch with our experienced team</p>
-        
-        <div class="contact-grid">
-            <div class="contact-card">
-                <h3>📞 Contact Information</h3>
-                <div class="contact-info">
-                    <p><strong>Phone:</strong> (049) 539 5324</p>
-                    <p><strong>Mobile:</strong> +09190964146</p>
-                    <p><strong>Email:</strong> mfas.rbdg@gmail.com</p>
-                    <p><strong>Technical:</strong> russellgonzales.rg@gmail.com</p>
-                </div>
-            </div>
-            <div class="contact-card">
-                <h3>💼 Business Hours</h3>
-                <div class="contact-info">
-                    <p><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
-                    <p><strong>Saturday:</strong> 8:00 AM - 12:00 PM</p>
-                    <p><strong>Emergency:</strong> 24/7 Support Available</p>
-                </div>
-            </div>
-            <div class="contact-card">
-                <h3>🚀 Professional Service</h3>
-                <div class="contact-info">
-                    <p>With over 40 years of experience, we provide immediate response and professional consultation for all your crane hire and safety device needs.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentSection = 'home';
-
-        function showSection(sectionName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Show hero section for home, otherwise show the requested section
-            if (sectionName === 'home') {
-                document.querySelector('.main-content').style.display = 'flex';
-            } else {
-                document.querySelector('.main-content').style.display = 'none';
-                document.getElementById(sectionName).classList.add('active');
+                font-weight: bold;
+                margin-bottom: 1rem;
             }
 
-            // Update navigation pills
-            const pills = document.querySelectorAll('.nav-pill');
-            pills.forEach(pill => {
-                pill.classList.remove('active');
-            });
-
-            // Find and activate the correct pill
-            const pillIndex = ['home', 'products', 'services', 'about', 'contact'].indexOf(sectionName);
-            if (pillIndex !== -1) {
-                pills[pillIndex].classList.add('active');
+            .product-card p {
+                color: #ccc;
+                line-height: 1.5;
             }
 
-            currentSection = sectionName;
-        }
+            /* Navigation Pills */
+            .nav-pills {
+                position: fixed;
+                right: 2rem;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                z-index: 100;
+            }
 
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-        }
+            .nav-pill {
+                width: 60px;
+                height: 60px;
+                background: grey;
+                border: 2px solid white;
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.8rem;
+                text-align: center;
+            }
 
-        function closeMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.remove('active');
-        }
+            .nav-pill:hover, .nav-pill.active {
+                background: #014292;
+                border-color: #014292;
+                transform: scale(1.1);
+            }
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
+            /* Contact Section */
+            .contact-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin: 3rem 0;
+            }
+
+            .contact-card {
+                background: rgba(255,255,255,0.05);
+                border: 1px solid rgba(255,255,255,0.1);
+                padding: 2.5rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .contact-card h3 {
+                color: #014292;
+                font-size: 1.4rem;
+                font-weight: bold;
+                margin-bottom: 1.5rem;
+            }
+
+            .contact-info {
+                color: #ccc;
+                line-height: 1.8;
+            }
+
+            .contact-info strong {
+                color: #fff;
+            }
+
+            /* Mobile Responsive Design */
+            @media (max-width: 1024px) {
+                .main-content {
+                    flex-direction: column;
+                }
+                
+                .red-sidebar {
+                    width: 100%;
+                    padding: 2rem;
+                    text-align: center;
+                }
+                
+                .hero-section {
+                    min-height: 60vh;
+                    padding: 2rem;
+                }
+                
+                .hero-title {
+                    font-size: 2.5rem;
+                }
+                
+                .nav-pills {
+                    right: 1rem;
+                }
+
+                .nav-pill {
+                    width: 50px;
+                    height: 50px;
+                    font-size: 0.7rem;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .header {
+                    padding: 0.5rem 0;
+                }
+
+                .nav-container {
+                    padding: 0 1rem;
+                }
+
+                .logo {
+                    font-size: 1.2rem;
+                }
+
+                .logo-img {
+                    height: 45px;
+                }
+
+                .nav-menu {
+                    display: none;
+                }
+
+                .mobile-menu-btn {
+                    display: flex;
+                }
+                
+                .hero-title {
+                    font-size: 2rem;
+                    text-align: center;
+                }
+                
+                .hero-content {
+                    text-align: center;
+                    padding: 1rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 1rem;
+                    margin-bottom: 2rem;
+                }
+
+                .cta-button {
+                    padding: 0.8rem 1.5rem;
+                    font-size: 0.9rem;
+                }
+
+                .section-title {
+                    font-size: 2rem;
+                }
+
+                .section-subtitle {
+                    font-size: 1rem;
+                    margin-bottom: 2rem;
+                }
+
+                .content-section {
+                    padding: 2rem 1rem;
+                }
+
+                .features-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    margin: 2rem 0;
+                }
+
+                .products-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .contact-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                }
+
+                .feature-card, .product-card, .contact-card {
+                    padding: 1.5rem;
+                }
+
+                .nav-pills {
+                    position: fixed;
+                    bottom: 2rem;
+                    right: 50%;
+                    transform: translateX(50%);
+                    flex-direction: row;
+                    gap: 0.5rem;
+                    top: auto;
+                }
+
+                .nav-pill {
+                    width: 45px;
+                    height: 45px;
+                    font-size: 0.8rem;
+                }
+
+                .red-sidebar {
+                    padding: 1.5rem;
+                    min-height: auto;
+                }
+
+                .sidebar-logo {
+                    font-size: 1.5rem;
+                    margin-bottom: 1rem;
+                }
+
+                .hero-section {
+                    padding: 1.5rem;
+                    min-height: 50vh;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .nav-container {
+                    padding: 0 0.5rem;
+                }
+
+                .logo {
+                    font-size: 1rem;
+                }
+
+                .logo-img {
+                    height: 35px;
+                    margin-right: 5px;
+                }
+
+                .hero-title {
+                    font-size: 1.5rem;
+                    line-height: 1.2;
+                }
+
+                .hero-subtitle {
+                    font-size: 0.9rem;
+                }
+
+                .section-title {
+                    font-size: 1.8rem;
+                }
+
+                .feature-card h3,
+                .product-card h3,
+                .contact-card h3 {
+                    font-size: 1.2rem;
+                }
+
+                .feature-card,
+                .product-card,
+                .contact-card {
+                    padding: 1rem;
+                }
+
+                .product-icon {
+                    width: 60px;
+                    height: 60px;
+                    font-size: 1.5rem;
+                }
+
+                .nav-pills {
+                    bottom: 1rem;
+                    gap: 0.3rem;
+                }
+
+                .nav-pill {
+                    width: 35px;
+                    height: 35px;
+                    font-size: 0.7rem;
+                }
+
+                .cta-button {
+                    padding: 0.7rem 1.2rem;
+                    font-size: 0.8rem;
+                }
+
+                .mobile-menu {
+                    padding: 1rem;
+                }
+            }
+
+            /* Landscape orientation adjustments */
+            @media (max-width: 768px) and (orientation: landscape) {
+                .hero-section {
+                    min-height: 40vh;
+                    padding: 1rem;
+                }
+
+                .hero-title {
+                    font-size: 1.8rem;
+                    margin-bottom: 1rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 0.9rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .red-sidebar {
+                    padding: 1rem;
+                }
+
+                .sidebar-logo {
+                    font-size: 1.3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+            <div class="nav-container">
+                <!-- Logo with Image Placeholder -->
+                <div class="logo">
+                    <img src="Images/logo1.png" alt="Logo" class="logo-img">
+                    <span>MARIA FE AUTO SERVICES</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#" onclick="showSection('home')">HOME</a></li>
+                        <li><a href="#" onclick="showSection('products')">PRODUCTS</a></li>
+                        <li><a href="#" onclick="showSection('services')">SERVICES</a></li>
+                        <li><a href="#" onclick="showSection('about')">ABOUT US</a></li>
+                        <li><a href="#" onclick="showSection('news')">NEWS</a></li>
+                        <li><a href="#" class="contact-btn" onclick="showSection('contact')">CONTACT US</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <!-- Mobile Navigation Menu -->
+                <div class="mobile-menu" id="mobileMenu">
+                    <a href="#" onclick="showSection('home'); closeMobileMenu()">HOME</a>
+                    <a href="#" onclick="showSection('products'); closeMobileMenu()">PRODUCTS</a>
+                    <a href="#" onclick="showSection('services'); closeMobileMenu()">SERVICES</a>
+                    <a href="#" onclick="showSection('about'); closeMobileMenu()">ABOUT US</a>
+                    <a href="#" onclick="showSection('news'); closeMobileMenu()">NEWS</a>
+                    <a href="#" onclick="showSection('contact'); closeMobileMenu()">CONTACT US</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Red Sidebar -->
+            <div class="red-sidebar">
+                <div class="sidebar-logo">
+                    <div class="sidebar-block">
+                        CRANE
+                        <span class="services">SERVICES</span>
+                    </div>
+
+                    <div class="sidebar-block">
+                        LOAD MOMENT INDICATOR
+                        <span class="lmi">INSTALLATION</span>
+                    </div>
+
+                    <div class="sidebar-block">
+                        AUTOMOTIVE
+                        <span class="automotive">FULL RESTORATION</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">LIFTING SOLUTIONS, TRUSTED HEAVY EQUIPMENT SERVICES, REPAIR & MAINTENANCE EXPERTISE</h1>
+                    <p class="hero-subtitle">Providing complete crane solutions — from full refurbishment and rehabilitation to advanced load moment indicator installations, supported by expert repair and maintenance services for maximum performance and safety.</p>
+                    <a href="#" class="cta-button" onclick="showSection('products')">SEE OUR DIFFERENCE</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Pills -->
+        <div class="nav-pills">
+            <div class="nav-pill active" onclick="showSection('home')" title="Home">🏠︎</div>
+            <div class="nav-pill" onclick="showSection('products')" title="Products">◼</div>
+            <div class="nav-pill" onclick="showSection('services')" title="Services">🛠</div>
+            <div class="nav-pill" onclick="showSection('about')" title="About">ℹ</div>
+            <div class="nav-pill" onclick="showSection('contact')" title="Contact">🕻</div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="products" class="content-section">
+            <h2 class="section-title">CRANE SAFETY DEVICES</h2>
+            <p class="section-subtitle">Professional-grade safety equipment and monitoring systems for heavy construction equipment</p>
             
-            if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">📡</div>
+                    <h3>Pressure Sensors</h3>
+                    <p>High-precision pressure monitoring for hydraulic systems with real-time data processing</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🖥️</div>
+                    <h3>Display Console</h3>
+                    <p>User-friendly touch screen colored monitor with real-time indicators and alerts</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">⚖️</div>
+                    <h3>Tension Meter</h3>
+                    <p>Accurate load measurement and tension monitoring for safe lifting operations</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">📐</div>
+                    <h3>Angle Sensor</h3>
+                    <p>Precise angle measurement for boom positioning and operational safety</p>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>SPECIAL FEATURES</h3>
+                    <ul class="feature-list">
+                        <li>User Friendly Touch Screen</li>
+                        <li>Colored Monitor/Indicator</li>
+                        <li>Load Weight Monitoring</li>
+                        <li>Crane Radius Measurement</li>
+                        <li>Angle Detection</li>
+                        <li>Boom Length Calculation</li>
+                        <li>Anti-Two Block System</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>TECHNICAL SPECIFICATIONS</h3>
+                    <ul class="feature-list">
+                        <li>Weather-resistant design</li>
+                        <li>Real-time data processing</li>
+                        <li>Audio-visual alarms</li>
+                        <li>Data logging capability</li>
+                        <li>Easy installation</li>
+                        <li>Low maintenance requirements</li>
+                        <li>Industry standard compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div id="services" class="content-section">
+            <h2 class="section-title">OUR SERVICES</h2>
+            <p class="section-subtitle">Comprehensive solutions for heavy equipment safety and maintenance</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Mobile Crane Hire</h3>
+                    <p>Over 40 years of mobile crane hire experience with the largest range of cranes and complete lifting services.</p>
+                    <ul class="feature-list">
+                        <li>Mobile crane rental</li>
+                        <li>Qualified operators</li>
+                        <li>Project consultation</li>
+                        <li>Safety compliance</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Installation Services</h3>
+                    <p>Professional installation of crane safety devices and monitoring systems by certified technicians.</p>
+                    <ul class="feature-list">
+                        <li>On-site installation</li>
+                        <li>System calibration</li>
+                        <li>Testing and validation</li>
+                        <li>Operator training</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Maintenance & Support</h3>
+                    <p>Regular maintenance and technical support to ensure optimal performance of your equipment.</p>
+                    <ul class="feature-list">
+                        <li>Preventive maintenance</li>
+                        <li>Emergency repairs</li>
+                        <li>24/7 technical support</li>
+                        <li>Spare parts supply</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div id="about" class="content-section">
+            <h2 class="section-title">ABOUT MARIA FE AUTO SERVICES</h2>
+            <p class="section-subtitle">Over 40 years of mobile crane hire experience with proven expertise</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Our Experience</h3>
+                    <p>With over 40 years of mobile crane hire experience, we have established ourselves as a trusted leader in the heavy equipment industry, providing reliable crane safety devices and comprehensive lifting solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Our Mission</h3>
+                    <p>To streamline your projects with the largest range of cranes, complete lifting services, and a fully qualified team dedicated to safety and operational excellence in every project we undertake.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Why Choose Us</h3>
+                    <ul class="feature-list">
+                        <li>Over 40 years industry experience</li>
+                        <li>Largest range of cranes available</li>
+                        <li>Fully qualified team</li>
+                        <li>Complete lifting services</li>
+                        <li>Advanced safety technology</li>
+                        <li>Professional consultation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="content-section">
+            <h2 class="section-title">CONTACT US</h2>
+            <p class="section-subtitle">Get in touch with our experienced team</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>📞 Contact Information</h3>
+                    <div class="contact-info">
+                        <p><strong>Phone:</strong> (049) 539 5324</p>
+                        <p><strong>Mobile:</strong> +09190964146</p>
+                        <p><strong>Email:</strong> mfas.rbdg@gmail.com</p>
+                        <p><strong>Technical:</strong> russellgonzales.rg@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <h3>💼 Business Hours</h3>
+                    <div class="contact-info">
+                        <p><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
+                        <p><strong>Saturday:</strong> 8:00 AM - 12:00 PM</p>
+                        <p><strong>Emergency:</strong> 24/7 Support Available</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <h3>🚀 Professional Service</h3>
+                    <div class="contact-info">
+                        <p>With over 40 years of experience, we provide immediate response and professional consultation for all your crane hire and safety device needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let currentSection = 'home';
+
+            function showSection(sectionName) {
+                // Hide all sections
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show hero section for home, otherwise show the requested section
+                if (sectionName === 'home') {
+                    document.querySelector('.main-content').style.display = 'flex';
+                } else {
+                    document.querySelector('.main-content').style.display = 'none';
+                    document.getElementById(sectionName).classList.add('active');
+                }
+
+                // Update navigation pills
+                const pills = document.querySelectorAll('.nav-pill');
+                pills.forEach(pill => {
+                    pill.classList.remove('active');
+                });
+
+                // Find and activate the correct pill
+                const pillIndex = ['home', 'products', 'services', 'about', 'contact'].indexOf(sectionName);
+                if (pillIndex !== -1) {
+                    pills[pillIndex].classList.add('active');
+                }
+
+                currentSection = sectionName;
+            }
+
+            function toggleMobileMenu() {
+                const mobileMenu = document.getElementById('mobileMenu');
+                mobileMenu.classList.toggle('active');
+            }
+
+            function closeMobileMenu() {
+                const mobileMenu = document.getElementById('mobileMenu');
                 mobileMenu.classList.remove('active');
             }
-        });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            showSection('home');
-        });
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const mobileMenu = document.getElementById('mobileMenu');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                    mobileMenu.classList.remove('active');
+                }
+            });
 
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                document.getElementById('mobileMenu').classList.remove('active');
-            }
-        });
-    </script>
-</body>
-</html>
+            // Initialize
+            document.addEventListener('DOMContentLoaded', function() {
+                showSection('home');
+            });
 
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    document.getElementById('mobileMenu').classList.remove('active');
+                }
+            });
+        </script>
+    </body>
+    </html>
